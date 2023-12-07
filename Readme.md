@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Евгений](https://up.htmlacademy.ru/javascript/30/user/1977371).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей](https://htmlacademy.ru/profile/seraphim).
 
 ---
 
