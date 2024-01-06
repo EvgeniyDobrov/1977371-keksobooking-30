@@ -1,4 +1,4 @@
-import { getRandomInteger, getRandomElement, getRandomFloat } from './util.js';
+import { getRandomInteger, getRandomElement, getRandomFloat} from './util.js';
 
 const COUNT_OFFERS = 10;
 
@@ -71,26 +71,23 @@ const LngInterval = {
   MAX: 139.80000
 };
 
-let currentAvatarId = 1;
+const createPhotos = () => {
+  const randomPhotosIndex = getRandomInteger(0, PHOTOS.length - 1);
 
-const createFeatures = (array) => {
-  const count = getRandomInteger(1, array.length - 1);
-  const newSet = new Set();
-  while(newSet.size < count) {
-    newSet.add(getRandomElement(array));
-  }
-
-  return Array.from(newSet);
+  return {
+    features: PHOTOS[randomPhotosIndex],
+  };
 };
 
-const createPhotos = () => Array.from(
-  { length: getRandomInteger(1, PHOTOS.length - 1) },
-  () => getRandomElement(PHOTOS),
-);
+const samePhotos = Array.from({length: getRandomInteger(1, 100)}, createPhotos);
 
-const createAuthor = () => ({
-  avatar: `img/avatars/user${`${currentAvatarId++}`.padStart(2, '0')}.png`,
-});
+const sameAuthor = () => {
+  const randomAuthorIndex = getRandomInteger(1, 10);
+
+  return {
+    avatar: (`img/avatars/user${ 0 + randomAuthorIndex }.png`),
+  };
+};
 
 const createLocation = () => {
   const lat = getRandomFloat(LatInterval.MIN, LatInterval.MAX).toFixed(5);
@@ -98,6 +95,17 @@ const createLocation = () => {
 
   return `${lat}, ${lng}`;
 };
+
+const createFeatures = () => {
+  const randomFeaturesIndex = getRandomInteger(0, FEATURES.length - 1);
+
+  return {
+    features: FEATURES[randomFeaturesIndex],
+  };
+};
+
+const sameFeatures = Array.from({length: getRandomInteger(1, 5)}, createFeatures);
+
 
 const createOffer = () => ({
   title: getRandomElement(OFFERS_TITLE),
@@ -108,13 +116,14 @@ const createOffer = () => ({
   guests: getRandomInteger(1,10),
   checkin: getRandomElement(CHECKIN_TIME),
   checkout: getRandomElement(CHECKIN_TIME),
-  features: createFeatures(FEATURES),
+  features: sameFeatures,
   description: getRandomElement(DESCRIPTIONS),
-  photos: createPhotos()
+  photos: samePhotos,
+  author: sameAuthor,
 });
 
 const createRandomAd = () => ({
-  author: createAuthor(),
+  author: sameAuthor(),
   offer: createOffer(),
   location: createLocation()
 });

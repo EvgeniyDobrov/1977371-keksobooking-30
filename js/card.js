@@ -6,7 +6,8 @@ const offerType = {
   hotel: 'Отель'
 };
 
-const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+const cardTemplate = document.querySelector('#card')
+  .content.querySelector('.popup');
 const containerElement = document.querySelector('#map-canvas');
 
 const createCard = ({ offer, author }) => {
@@ -18,10 +19,20 @@ const createCard = ({ offer, author }) => {
   card.querySelector('.popup__type').textContent = offerType[offer.type];
   card.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
   card.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-  //В список .popup__features выведите все доступные удобства в объявлении.
+  card.querySelector('.popup__features').textContent = offer.features;
   card.querySelector('.popup__description').textContent = offer.description;
-  //В блок .popup__photos выведите все фотографии из списка offer.photos. Каждая из строк массива photos должна записываться как атрибут src соответствующего изображения.
-  card.querySelector('.popup__avatar').src = author.avatar;
+  card.querySelector('.popup__photos').src = offer.photos;
+  card.querySelector('.popup__avatar').src = author;
 
   return card;
 };
+
+const renderCards = (popup) => {
+  const fragment = document.createDocumentFragment();
+  popup.forEach((offer) => {
+    const card = createCard(offer);
+    fragment.append(card);
+  });
+  containerElement.append(fragment);
+};
+export {renderCards};
