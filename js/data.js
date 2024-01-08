@@ -2,7 +2,7 @@ import { getRandomInteger, getRandomElement, getRandomFloat} from './util.js';
 
 const COUNT_OFFERS = 10;
 
-const OFFERS_TITLE = [
+export const TITLES = [
   'Квартира-студия в центре',
   'Квартира с дизайнерским ремонтом',
   'Уютная квартира в тихом районе',
@@ -108,7 +108,7 @@ const sameFeatures = Array.from({length: getRandomInteger(1, 5)}, createFeatures
 
 
 const createOffer = () => ({
-  title: getRandomElement(OFFERS_TITLE),
+  title: getRandomElement(TITLES),
   address: createLocation(),
   price: getRandomInteger(PriceInterval.MIN, PriceInterval.MAX),
   type: getRandomElement(TYPE_LIST),
